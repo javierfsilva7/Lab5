@@ -16,9 +16,27 @@
  */
 package edu.eci.pdsw.samples.tests;
 
+import edu.eci.pdsw.samples.entities.*;
+import edu.eci.pdsw.samples.services.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+/*Clases de equivalencia:
+
+    Clase de equivalencia 1: No se debe  agregar una respuesta a un foro que no existe 
+    Tipo: Normal
+    Se espera un error: si() no(x)
+
+    Clase de equivalencia 2: No se debe porder agregar una respuesta al foro si el Usuario no existe
+    Tipo: Normal
+    Se espera un error: si() no(x)
+
+    Clase de equivalencia 3: Cuanto la respuesta que se quiere agregar posee una fecha menor de la fecha del foro
+    Tipo: Frontera
+    Se espera un error: si(x) no()
+
+*/
 
 /**
  *
@@ -26,17 +44,21 @@ import static org.junit.Assert.*;
  */
 public class ComentariosTest {
     
-    public ComentariosTest() {
-    }
+    private ServiciosForo serviForo;
     
     @Before
-    public void setUp() {
+    public void setUp(){
+        serviForo = ServiciosForo.getInstance();
     }
     
     @Test
-    public void registroPacienteTest(){
-        
+    public void registrarNuevaEntradaForoExistenteTest() throws ExcepcionServiciosForos{
+        EntradaForo ef= new EntradaForo(0,serviForo.consultarUsuario("luisa.perez@gmail.com"),"¿Por que el fuego quema?","Prueba",java.sql.Date.valueOf("2000-02-02"));
+        serviForo.registrarNuevaEntradaForo(ef);
+        EntradaForo ef2= serviForo.consultarEntradaForo(1);
+        assertEquals("La entrada no quedo registrada exitosamente",ef,ef2);
     }
+    
     
     
 }
