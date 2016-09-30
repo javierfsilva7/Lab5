@@ -16,6 +16,9 @@
  */
 package edu.eci.pdsw.samples.tests;
 
+import edu.eci.pdsw.samples.entities.EntradaForo;
+import edu.eci.pdsw.samples.entities.Usuario;
+import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -26,6 +29,22 @@ import static org.junit.Assert.*;
  */
 public class EntradasForoTest {
     
+    /* CLASES DE EQUIVALENCIA
+    
+    CLASE DE EQUIVALENCIA 1: El titulo de la entrada no fue puesto.
+    TIPO: (Normal)
+    SE ESPERA UN ERROR: SI(X) NO()
+    
+    CLASE DE EQUIVALENCIA 2: El comentario de la entrada no fue puesto.
+    TIPO: (Normal)
+    SE ESPERA UN ERROR: SI(X) NO()
+    
+    CLASE DE EQUIVALENCIA 3: El correo del usuario es invalido.
+    TIPO: (Normal)
+    SE ESPERA UN ERROR: SI(X) NO()
+              
+    
+    */
     public EntradasForoTest() {
     }
     
@@ -35,7 +54,12 @@ public class EntradasForoTest {
     
     @Test
     public void registroPacienteTest(){
-        
+       Usuario usr= new Usuario("castellanosisa@gmail.com", "Isabel Castellanos");
+       EntradaForo entrada= new EntradaForo(1, usr, "¿Cuando juega millos?", "Fixture Millonarios", (java.sql.Date)new Date(2016,9,12,10,32,12));
+       String com= entrada.getComentario();
+       assertEquals("El correo esta mal escrito", -1, usr.getEmail().indexOf("@"));
+       
+       
     }
     
     
