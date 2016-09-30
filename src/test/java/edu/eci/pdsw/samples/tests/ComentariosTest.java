@@ -55,7 +55,7 @@ public class ComentariosTest {
     public void registrarNuevaEntradaForoExistenteTest() throws ExcepcionServiciosForos{
         EntradaForo ef= new EntradaForo(0,serviForo.consultarUsuario("luisa.perez@gmail.com"),"¿Por que el fuego quema?","Prueba",java.sql.Date.valueOf("2000-02-02"));
         serviForo.registrarNuevaEntradaForo(ef);
-        EntradaForo ef2= serviForo.consultarEntradaForo(1);
+        EntradaForo ef2= serviForo.consultarEntradaForo(2);
         assertEquals("La entrada no quedo registrada exitosamente",ef,ef2);
     }
     
