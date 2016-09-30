@@ -58,10 +58,10 @@ public class EntradasForoTest {
     
     @Test
     public void registroEntradaForoTest() throws ExcepcionServiciosForos{
-       Usuario usr= new Usuario("castellanosisagmail.com", "Isabel Castellanos");
+       Usuario usr= new Usuario("castellanosisa@gmail.com", "Isabel Castellanos");
        EntradaForo entrada= new EntradaForo(0, usr, "¿Cuando juega millos?", "Fixture Millonarios", java.sql.Date.valueOf("2016-09-28"));
        foro.registrarNuevaEntradaForo(entrada);
-       assertEquals("El correo esta mal escrito", -1, usr.getEmail().indexOf("@"));
+       assertEquals("El correo es invalido", true, usr.getEmail().contains("@"));
        
        
     }
