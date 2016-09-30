@@ -17,20 +17,47 @@
 package edu.eci.pdsw.samples.managedbeans;
 
 
-import edu.eci.pdsw.samples.services.ServiciosForo;
+import edu.eci.pdsw.samples.entities.*;
+import edu.eci.pdsw.samples.services.*;
 import java.io.Serializable;
-import javax.annotation.ManagedBean;
-import javax.enterprise.context.SessionScoped;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author hcadavid
  */
-@ManagedBean
+@ManagedBean(name="RegistroForosBean")
 @SessionScoped
 public class RegistroForosBean implements Serializable{
     
     ServiciosForo sp=ServiciosForo.getInstance();
+    private EntradaForo nuevaEntradaForo = new EntradaForo();
+    private Usuario us = new Usuario();
     
+    public void setIDNuevaEntrada(int identificador){
+        nuevaEntradaForo.setIdentificador(identificador);
+    }
+    
+    public void setUsuario(String email){
+        try{
+            this.us=sp.consultarUsuario(email);
+            nuevaEntradaForo.setAutor(us);
+        }catch(ExcepcionServiciosForos e){
+            e.printStackTrace();
+        }
+    }
+    
+    public void setComentario(String comentario){
+        nuevaEntradaForo.setComentario(comentario);
+    }
+    
+    public void setTitulo(String titulo){
+        nuevaEntradaForo.setTitulo(titulo);
+    }
+    
+    public void creaEntrada(){
+        
+    }
     
 }

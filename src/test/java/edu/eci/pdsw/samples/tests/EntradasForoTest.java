@@ -55,7 +55,7 @@ public class EntradasForoTest {
     @Test
     public void registroPacienteTest(){
        Usuario usr= new Usuario("castellanosisa@gmail.com", "Isabel Castellanos");
-       EntradaForo entrada= new EntradaForo(1, usr, "¿Cuando juega millos?", "Fixture Millonarios", (java.sql.Date)new Date(2016,9,12,10,32,12));
+       EntradaForo entrada= new EntradaForo(1, usr, "¿Cuando juega millos?", "Fixture Millonarios", java.sql.Date.valueOf("2000-03-03"));
        String com= entrada.getComentario();
        assertEquals("El correo esta mal escrito", -1, usr.getEmail().indexOf("@"));
        
