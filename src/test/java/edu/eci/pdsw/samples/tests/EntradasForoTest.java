@@ -18,6 +18,8 @@ package edu.eci.pdsw.samples.tests;
 
 import edu.eci.pdsw.samples.entities.EntradaForo;
 import edu.eci.pdsw.samples.entities.Usuario;
+import edu.eci.pdsw.samples.services.ExcepcionServiciosForos;
+import edu.eci.pdsw.samples.services.ServiciosForo;
 import java.util.Date;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,16 +49,18 @@ public class EntradasForoTest {
     */
     public EntradasForoTest() {
     }
-    
+    private ServiciosForo foro;
     @Before
     public void setUp() {
+        foro = ServiciosForo.getInstance();
+        
     }
     
     @Test
-    public void registroPacienteTest(){
-       Usuario usr= new Usuario("castellanosisa@gmail.com", "Isabel Castellanos");
-       EntradaForo entrada= new EntradaForo(1, usr, "¿Cuando juega millos?", "Fixture Millonarios", (java.sql.Date)new Date(2016,9,12,10,32,12));
-       String com= entrada.getComentario();
+    public void registroEntradaForoTest() throws ExcepcionServiciosForos{
+       Usuario usr= new Usuario("castellanosisagmail.com", "Isabel Castellanos");
+       EntradaForo entrada= new EntradaForo(0, usr, "¿Cuando juega millos?", "Fixture Millonarios", java.sql.Date.valueOf("2016-09-28"));
+       foro.registrarNuevaEntradaForo(entrada);
        assertEquals("El correo esta mal escrito", -1, usr.getEmail().indexOf("@"));
        
        
