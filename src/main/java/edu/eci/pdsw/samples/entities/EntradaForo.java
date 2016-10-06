@@ -39,6 +39,7 @@ public class EntradaForo {
     private Date fechayHora;
 
     public EntradaForo() {
+        this.respuestas=new LinkedHashSet<>(); 
     }
     
     

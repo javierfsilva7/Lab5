@@ -6,8 +6,24 @@
 
     <h:body>
         <h:form id="formulario_registroEntradaForo">
-            <p:inputText value=""
+            <p:dataTable id="tabla" var="foros" value="#{registroForosBean.foros}">
+                <p:column headerText="Foros">
+                    #{foros.titulo}
+                </p:column>
+                <p:column headerText="Aqui no hay nada">
+                    #{foros.autor.nombre}
+                </p:column>
+            </p:dataTable>
         </h:form>
+
+        <p:inputText id="email" value="#{registroForosBean.usuario}">Email Usuario: </p:inputText>
+        <p:inputTextarea id="comentario" value="#{registroForosBean.setComentario(comentario)}"> Comentarios: </p:inputTextarea>
+        <p:inputText id="titulo" value="#{registroForosBean.titulo}"> 
+            Titulo del nuevo foro: 
+        </p:inputText>
+        <p:commandButton value="EntradaForo" actionListener="#{registroForosBean.creaForo()}" update="formulario_registroEntradaForo"></p:commandButton>
+
+        
     </h:body>
 
 </html>

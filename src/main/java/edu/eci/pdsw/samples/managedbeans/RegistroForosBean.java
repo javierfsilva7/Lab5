@@ -20,6 +20,8 @@ package edu.eci.pdsw.samples.managedbeans;
 import edu.eci.pdsw.samples.entities.*;
 import edu.eci.pdsw.samples.services.*;
 import java.io.Serializable;
+import java.sql.Date;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -27,37 +29,66 @@ import javax.faces.bean.SessionScoped;
  *
  * @author hcadavid
  */
-@ManagedBean(name="RegistroForosBean")
+@ManagedBean(name="registroForosBean")
 @SessionScoped
 public class RegistroForosBean implements Serializable{
     
     ServiciosForo sp=ServiciosForo.getInstance();
-    private EntradaForo nuevaEntradaForo = new EntradaForo();
-    private Usuario us = new Usuario();
+    public String us;
+    public String comentario;
+    public String titulo;
+    private List<EntradaForo> foros;
     
-    public void setIDNuevaEntrada(int identificador){
-        nuevaEntradaForo.setIdentificador(identificador);
-    }
+    
+    public RegistroForosBean(){}
     
     public void setUsuario(String email){
-        try{
-            this.us=sp.consultarUsuario(email);
-            nuevaEntradaForo.setAutor(us);
+        this.us = email;
+    }
+    
+    public String getUsuario(){
+        return us;
+    }
+    
+    
+    public void setComentario(String comentario){
+        this.comentario=comentario;
+    }
+    
+    public String getComentario(){
+        return comentario;
+    }
+    
+    
+    public void setTitulo(String titulo){
+        this.titulo=titulo;
+    }
+    
+    public String getTitulo(){
+        return titulo;
+    }
+    
+    public void creaForo(){
+        try{ 
+            /*EntradaForo nuevoForo= new EntradaForo();
+            nuevoForo.setAutor(us);
+            nuevoForo.setComentario(comentario);
+            nuevoForo.setTitulo(titulo);
+            nuevoForo.setFechayHora(new Date(2016,11,7*/
+            EntradaForo ef=new EntradaForo(0, sp.consultarUsuario("juan.perez@gmail.com"),"hola?", this.titulo, java.sql.Date.valueOf("2005-01-01"));
+            sp.registrarNuevaEntradaForo(ef);
+        
+            this.foros=sp.consultarEntradasForo();
         }catch(ExcepcionServiciosForos e){
             e.printStackTrace();
         }
+       
     }
     
-    public void setComentario(String comentario){
-        nuevaEntradaForo.setComentario(comentario);
+    public List<EntradaForo> getForos() throws ExcepcionServiciosForos{
+        return sp.consultarEntradasForo();
     }
     
-    public void setTitulo(String titulo){
-        nuevaEntradaForo.setTitulo(titulo);
-    }
-    
-    public void creaEntrada(){
-        
-    }
+
     
 }
