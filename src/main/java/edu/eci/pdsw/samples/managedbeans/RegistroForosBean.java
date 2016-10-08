@@ -20,7 +20,9 @@ import edu.eci.pdsw.samples.entities.*;
 import edu.eci.pdsw.samples.services.*;
 import java.io.Serializable;
 import java.sql.Date;
+
 import java.time.LocalDate;
+
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -30,6 +32,7 @@ import org.primefaces.event.*;
  *
  * @author hcadavid
  */
+
 @ManagedBean(name = "registroForosBean")
 @SessionScoped
 public class RegistroForosBean implements Serializable {
