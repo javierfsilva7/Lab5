@@ -2,12 +2,33 @@
 <html xmlns="http://www.w3c.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:p="http://primefaces.org/ui">
-    <h:head></h:head>
-
+    <h:head>
+    </h:head>
     <h:body>
+        
         <h:form id="formulario_registroEntradaForo">
-            <p:inputText value=""
+            <p:dataTable id="tabla" var="foros" value="#{registroForosBean.foros}"  editable="true">
+                <p:column headerText="Foros">
+                    #{foros.titulo}
+                </p:column>
+                <p:column headerText="Autor">
+                    #{foros.autor.nombre}
+                </p:column>
+            </p:dataTable>
         </h:form>
+        <h:form id="nuevo_foro">
+            <p:inputText value="#{registroForosBean.email}">
+                Email Usuario: <p:ajax listener="#{registroForosBean.nuevaEntradaEmail}" />
+            </p:inputText>
+            <p:inputTextarea id="comentario" value="#{registroForosBean.comentario}"> 
+                Comentarios: <p:ajax listener="#{registroForosBean.nuevaEntradaComentario}"/>
+            </p:inputTextarea>
+            <p:inputText value="#{registroForosBean.titulo}"> 
+                Titulo foro:  <p:ajax  listener="#{registroForosBean.nuevaEntradaTitulo}"/>
+            </p:inputText>
+        </h:form>
+        <p:commandButton update="formulario_registroEntradaForo" ajax="true" value="EntradaForo" actionListener="#{registroForosBean.creaForo()}" ></p:commandButton>
+        
     </h:body>
 
 </html>

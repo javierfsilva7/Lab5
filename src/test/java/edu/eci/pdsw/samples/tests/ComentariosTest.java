@@ -18,6 +18,7 @@ package edu.eci.pdsw.samples.tests;
 
 import edu.eci.pdsw.samples.entities.*;
 import edu.eci.pdsw.samples.services.*;
+import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -53,10 +54,18 @@ public class ComentariosTest {
     
     @Test
     public void registrarNuevaEntradaForoExistenteTest() throws ExcepcionServiciosForos{
-        EntradaForo ef= new EntradaForo(0,serviForo.consultarUsuario("luisa.perez@gmail.com"),"¿Por que el fuego quema?","Prueba",java.sql.Date.valueOf("2000-02-02"));
+        EntradaForo ef= new EntradaForo(0,serviForo.consultarUsuario("juan.ortiz@gmail.com"),"¿Por que el fuego quema?","Prueba",java.sql.Date.valueOf("2220-07-02"));
         serviForo.registrarNuevaEntradaForo(ef);
-        EntradaForo ef2= serviForo.consultarEntradaForo(2);
-        assertEquals("La entrada no quedo registrada exitosamente",ef,ef2);
+        
+        List<EntradaForo> listaForos = serviForo.consultarEntradasForo();
+        EntradaForo pruebaExistencia = null;
+        for(EntradaForo f : listaForos){
+            if(f.getTitulo()=="Prueba" && f.getFechayHora().equals(java.sql.Date.valueOf("2220-07-02"))){
+                pruebaExistencia = f;
+            }
+        }
+        
+        assertEquals("La entrada no quedo registrada exitosamente",ef,pruebaExistencia);
     }
     
     

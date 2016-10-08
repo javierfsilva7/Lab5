@@ -16,48 +16,93 @@
  */
 package edu.eci.pdsw.samples.managedbeans;
 
-
 import edu.eci.pdsw.samples.entities.*;
 import edu.eci.pdsw.samples.services.*;
 import java.io.Serializable;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.event.*;
 
 /**
  *
  * @author hcadavid
  */
-@ManagedBean(name="RegistroForosBean")
+@ManagedBean(name = "registroForosBean")
 @SessionScoped
-public class RegistroForosBean implements Serializable{
+public class RegistroForosBean implements Serializable {
+
+    ServiciosForo sp = ServiciosForo.getInstance();
     
-    ServiciosForo sp=ServiciosForo.getInstance();
-    private EntradaForo nuevaEntradaForo = new EntradaForo();
-    private Usuario us = new Usuario();
-    
-    public void setIDNuevaEntrada(int identificador){
-        nuevaEntradaForo.setIdentificador(identificador);
+    public String email;
+    public String comentario;
+    public String titulo;
+
+
+    public void nuevaEntradaTitulo(CaptureEvent event){
+        String p= event.toString();
+        this.titulo = p;
     }
     
-    public void setUsuario(String email){
-        try{
-            this.us=sp.consultarUsuario(email);
-            nuevaEntradaForo.setAutor(us);
-        }catch(ExcepcionServiciosForos e){
-            e.printStackTrace();
-        }
+    public void nuevaEntradaEmail(RowEditEvent event){
+        String p= event.toString();
+        this.email = p;
     }
     
-    public void setComentario(String comentario){
-        nuevaEntradaForo.setComentario(comentario);
+    public void nuevaEntradaComentario(RowEditEvent event){
+        String p= event.toString();
+        this.comentario = p;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
     
-    public void setTitulo(String titulo){
-        nuevaEntradaForo.setTitulo(titulo);
-    }
     
-    public void creaEntrada(){
+
+   
+
+    public void creaForo() throws ExcepcionServiciosForos {
+
+        /*EntradaForo nuevoForo= new EntradaForo();
+         nuevoForo.setAutor(us);
+         nuevoForo.setComentario(comentario);
+         nuevoForo.setTitulo(titulo);
+         nuevoForo.setFechayHora(new Date(2016,11,7*/
+        EntradaForo ef = new EntradaForo(0, sp.consultarUsuario(email), comentario, titulo, java.sql.Date.valueOf(LocalDate.MIN));
+        sp.registrarNuevaEntradaForo(ef);
+
         
+
+    }
+
+    public List<EntradaForo> getForos() throws ExcepcionServiciosForos {
+        return sp.consultarEntradasForo();
     }
     
+    
+
 }
