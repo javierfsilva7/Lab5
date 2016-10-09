@@ -42,6 +42,20 @@ public class RegistroForosBean implements Serializable {
     public String email;
     public String comentario;
     public String titulo;
+    
+    private EntradaForo ef;
+
+
+
+    public EntradaForo getEf() {
+        return ef;
+    }
+
+    public void setEf(EntradaForo ef) {
+        this.ef = ef;
+    }
+    
+    
 
 
     public void nuevaEntradaTitulo(CaptureEvent event){
