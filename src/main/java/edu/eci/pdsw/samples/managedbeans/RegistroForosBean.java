@@ -20,8 +20,15 @@ package edu.eci.pdsw.samples.managedbeans;
 import edu.eci.pdsw.samples.entities.*;
 import edu.eci.pdsw.samples.services.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.primefaces.event.CaptureEvent;
+import org.primefaces.event.RowEditEvent;
 
 /**
  *
@@ -32,32 +39,65 @@ import javax.faces.bean.SessionScoped;
 public class RegistroForosBean implements Serializable{
     
     ServiciosForo sp=ServiciosForo.getInstance();
-    private EntradaForo nuevaEntradaForo = new EntradaForo();
-    private Usuario us = new Usuario();
+    private String correoRes;
+    private String nombre;
+    private String contenido;
     
-    public void setIDNuevaEntrada(int identificador){
-        nuevaEntradaForo.setIdentificador(identificador);
+    
+    public void nuevaNombre(CaptureEvent event){
+        String n= event.toString();
+        this.nombre = n;
     }
     
-    public void setUsuario(String email){
-        try{
-            this.us=sp.consultarUsuario(email);
-            nuevaEntradaForo.setAutor(us);
-        }catch(ExcepcionServiciosForos e){
-            e.printStackTrace();
-        }
+    public void nuevoMail(CaptureEvent event){
+        String n= event.toString();
+        this.correoRes= n;
     }
     
-    public void setComentario(String comentario){
-        nuevaEntradaForo.setComentario(comentario);
+    public void nuevoContenido(CaptureEvent event){
+        String n= event.toString();
+        this.contenido = n;
     }
     
-    public void setTitulo(String titulo){
-        nuevaEntradaForo.setTitulo(titulo);
+    public void registraRespuesta(EntradaForo foro) throws ExcepcionServiciosForos{
+        Usuario usr=new Usuario(this.correoRes, this.nombre);
+        Comentario respuesta= new Comentario(usr, this.contenido, java.sql.Date.valueOf(LocalDate.MIN));
+        sp.agregarRespuestaForo(foro.getIdentificador(), respuesta);
+        /*Set<Comentario> respuestas= foro.getRespuestas();
+        respuestas.add(respuesta);
+        foro.setRespuestas(respuestas);*/
     }
     
-    public void creaEntrada(){
-        
+    public List<EntradaForo> getForos() throws ExcepcionServiciosForos {
+        return sp.consultarEntradasForo();
+    }
+
+    
+          
+    public String getCorreo() {
+        return correoRes;
+    }
+
+    public void setCorreo(String correo) {
+        this.correoRes = correo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
+    public String getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(String contenido) {
+        this.contenido = contenido;
+    }
+    
+    
+       
 }
