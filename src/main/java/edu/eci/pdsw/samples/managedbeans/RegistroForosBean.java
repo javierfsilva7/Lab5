@@ -16,7 +16,6 @@
  */
 package edu.eci.pdsw.samples.managedbeans;
 
-
 import edu.eci.pdsw.samples.entities.*;
 import edu.eci.pdsw.samples.services.*;
 import java.io.Serializable;
@@ -29,19 +28,30 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import org.primefaces.event.CaptureEvent;
 import org.primefaces.event.RowEditEvent;
+import java.time.LocalDate;
+import java.util.List;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import org.primefaces.event.*;
+
 
 /**
  *
  * @author hcadavid
  */
-@ManagedBean(name="RegistroForosBean")
+
+@ManagedBean(name = "registroForosBean")
 @SessionScoped
+
 public class RegistroForosBean implements Serializable{
     
     ServiciosForo sp=ServiciosForo.getInstance();
     private String correoRes;
     private String nombre;
     private String contenido;
+    public String email;
+    public String comentario;
+    public String titulo;
     
     
     public void nuevaNombre(CaptureEvent event){
@@ -67,13 +77,8 @@ public class RegistroForosBean implements Serializable{
         respuestas.add(respuesta);
         foro.setRespuestas(respuestas);*/
     }
-    
-    public List<EntradaForo> getForos() throws ExcepcionServiciosForos {
-        return sp.consultarEntradasForo();
-    }
-
-    
           
+         
     public String getCorreo() {
         return correoRes;
     }
@@ -98,6 +103,72 @@ public class RegistroForosBean implements Serializable{
         this.contenido = contenido;
     }
     
+        
+
+    public void nuevaEntradaTitulo(CaptureEvent event){
+        String p= event.toString();
+        this.titulo = p;
+    }
     
-       
+    public void nuevaEntradaEmail(RowEditEvent event){
+        String p= event.toString();
+        this.email = p;
+    }
+    
+    public void nuevaEntradaComentario(RowEditEvent event){
+        String p= event.toString();
+        this.comentario = p;
+    }
+
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+    
+    
+
+   
+
+    public void creaForo() throws ExcepcionServiciosForos {
+
+        /*EntradaForo nuevoForo= new EntradaForo();
+         nuevoForo.setAutor(us);
+         nuevoForo.setComentario(comentario);
+         nuevoForo.setTitulo(titulo);
+         nuevoForo.setFechayHora(new Date(2016,11,7*/
+        EntradaForo ef = new EntradaForo(0, sp.consultarUsuario(email), comentario, titulo, java.sql.Date.valueOf(LocalDate.MIN));
+        sp.registrarNuevaEntradaForo(ef);
+
+        
+
+    }
+
+    
+    public List<EntradaForo> getForos() throws ExcepcionServiciosForos {
+        return sp.consultarEntradasForo();
+    }
+    
+    
+
+
 }

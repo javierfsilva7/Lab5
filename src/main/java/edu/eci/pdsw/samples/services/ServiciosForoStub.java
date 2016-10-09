@@ -19,6 +19,7 @@ package edu.eci.pdsw.samples.services;
 import edu.eci.pdsw.samples.entities.Comentario;
 import edu.eci.pdsw.samples.entities.EntradaForo;
 import edu.eci.pdsw.samples.entities.Usuario;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -81,10 +82,16 @@ public class ServiciosForoStub extends ServiciosForo{
         usuarios.put("juan.perez@gmail.com", new Usuario("juan.perez@gmail.com", "Juan Perez"));
         usuarios.put("juan.rodriguez@gmail.com", new Usuario("juan.rodriguez@gmail.com", "Juan Rodriguez"));
         usuarios.put("luisa.perez@gmail.com", new Usuario("luisa.perez@gmail.com", "Luisa Perez"));
+        usuarios.put("juan.ortiz@gmail.com", new Usuario("juan.ortiz@gmail.com", "Juan Felipe Ortiz Niño"));
+        usuarios.put("javier.silva@gmail.com", new Usuario("javier.silva@gmail.com", "fernando leon"));
+        usuarios.put("valentina.triviño@gmail.com", new Usuario("valentina.triviño@gmail.com", "valentina triviño"));
+        
         
         EntradaForo ef=new EntradaForo(0, usuarios.get("juan.perez@gmail.com"),"Por que el agua moja?", "Super interrogante", java.sql.Date.valueOf("2000-01-01"));
+        EntradaForo ef2=new EntradaForo(0, usuarios.get("juan.ortiz@gmail.com"),"Por que el fuego quema?", "Interrogantes del universo", java.sql.Date.valueOf(LocalDate.MIN));
         try {
             registrarNuevaEntradaForo(ef);
+            registrarNuevaEntradaForo(ef2);
         } catch (ExcepcionServiciosForos ex) {
             Logger.getLogger(ServiciosForoStub.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
