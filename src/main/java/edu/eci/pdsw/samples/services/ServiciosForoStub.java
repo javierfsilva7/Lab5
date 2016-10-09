@@ -85,13 +85,15 @@ public class ServiciosForoStub extends ServiciosForo{
         usuarios.put("juan.ortiz@gmail.com", new Usuario("juan.ortiz@gmail.com", "Juan Felipe Ortiz Niño"));
         usuarios.put("javier.silva@gmail.com", new Usuario("javier.silva@gmail.com", "fernando leon"));
         usuarios.put("valentina.triviño@gmail.com", new Usuario("valentina.triviño@gmail.com", "valentina triviño"));
-        
+        usuarios.put("castellanos.isa@gmail.com", new Usuario("castellanos.isa@gmail.com", "Isabel Castellanos"));
         
         EntradaForo ef=new EntradaForo(0, usuarios.get("juan.perez@gmail.com"),"Por que el agua moja?", "Super interrogante", java.sql.Date.valueOf("2000-01-01"));
         EntradaForo ef2=new EntradaForo(0, usuarios.get("juan.ortiz@gmail.com"),"Por que el fuego quema?", "Interrogantes del universo", java.sql.Date.valueOf(LocalDate.MIN));
+        EntradaForo ef3=new EntradaForo(0, usuarios.get("castellanos.isa@gmail.com"), "Por qué mi novio es tan lindo?", "Enigmas del mundo", java.sql.Date.valueOf(LocalDate.MIN));
         try {
             registrarNuevaEntradaForo(ef);
             registrarNuevaEntradaForo(ef2);
+            registrarNuevaEntradaForo(ef3);
         } catch (ExcepcionServiciosForos ex) {
             Logger.getLogger(ServiciosForoStub.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();

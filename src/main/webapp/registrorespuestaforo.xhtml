@@ -26,18 +26,18 @@
                     </p:inputTextarea>
 
                     <p:commandButton update="Respuestas" ajax="true" value="Responder" actionListener="#{registroForosBean.registraRespuesta()}" icon="ui-icon-comment"/>
-                    
+
                     <p:dataTable id="tabla" var="foros" value="#{registroForosBean.foros}"  editable="true">
                         <p:column headerText="Comentario">
-                            #{foros.titulo}
+                            #{foros.respuestas}
                         </p:column>
                         <p:column headerText="Autor">
-                                 
+
                             #{foros.autor.nombre}
                         </p:column>
-                        
+
                     </p:dataTable>
-                
+
                 </h:panelGrid>
             </p:panel>   
         </h:form>
