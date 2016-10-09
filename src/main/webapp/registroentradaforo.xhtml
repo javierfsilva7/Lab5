@@ -18,7 +18,7 @@
                     #{foros.comentario}
                 </p:column>
                 <p:column>
-                    <p:commandButton value="Entrar al foro">
+                    <p:commandButton value="Entrar al foro" action="registrorespuestaforo.xhtml">
                         <f:setPropertyActionListener value="#{foros}" target="#{registroForosBean.ef}"/>
                     </p:commandButton>
                 </p:column>
